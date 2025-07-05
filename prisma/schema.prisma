@@ -18,7 +18,30 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("createdAt")
+  gadgets   Gadget[]
 
   @@map("users")
+}
+
+model Gadget {
+  id               String            @id @default(uuid())
+  name             String            
+  codename         String            @unique
+  description      String?
+  status           GadgetStatus      @default(Available)
+  createdById      Int               @map("createdById")
+  createdBy        User              @relation(fields: [createdById], references: [id])
+  createdAt        DateTime          @default(now()) @map("createdAt")
+  updatedAt        DateTime          @updatedAt @map("updatedAt")
+  decommissionedAt DateTime?         @map("decommissionedAt")
+
+  @@map("gadgets")
+}
+
+enum GadgetStatus {
+  Available
+  Deployed
+  Destroyed
+  Decommissioned
 }

@@ -34,7 +34,7 @@ export const signup: RequestHandler = async (req: Request, res: Response) => {
 
     // Create user
     const result = await db.query(
-      "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email, created_at",
+      "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email, createdAt",
       [email, hashedPassword]
     );
 
@@ -50,7 +50,7 @@ export const signup: RequestHandler = async (req: Request, res: Response) => {
       user: {
         id: user.id,
         email: user.email,
-        createdAt: user.created_at,
+        createdAt: user.createdAt,
       },
       token,
     });
@@ -97,7 +97,7 @@ export const login: RequestHandler = async (req: Request, res: Response) => {
       user: {
         id: user.id,
         email: user.email,
-        createdAt: user.created_at,
+        createdAt: user.createdAt,
       },
       token,
     });
