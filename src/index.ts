@@ -1,13 +1,15 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import db from "./config/db";
+import authRoutes from "../src/routes/auth.routes";
 
-const port = process.env.PORT || 8088;
 
 const app = express();
+const port = process.env.PORT || 8088;
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 db.connect()
   .then((client) => {
@@ -15,9 +17,10 @@ db.connect()
     client.release();
   })
   .catch((err) => {
-    console.error("Error connecting to the database");
+    console.error("Error connecting to the database", err.message);
     process.exit(1);
   });
+app.use("/api/auth", authRoutes);
 
 app.listen(port, () => {
   console.log(`Server started at ${port}`);
