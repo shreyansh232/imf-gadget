@@ -4,6 +4,7 @@ import cors from "cors";
 import db from "./config/db";
 import authRoutes from "../src/routes/auth.routes";
 import gadgetRoutes from "../src/routes/gadget.routes";
+import { swaggerUi, specs } from "./config/swagger";
 
 const app = express();
 const port = process.env.PORT || 8088;
@@ -20,6 +21,10 @@ db.connect()
     console.error("Error connecting to the database", err.message);
     process.exit(1);
   });
+
+// Swagger Documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/gadgets", gadgetRoutes);
 
