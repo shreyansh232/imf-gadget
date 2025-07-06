@@ -11,6 +11,10 @@ const options = {
     },
     servers: [
       {
+        url: 'https://imf-gadget-production.up.railway.app/api',
+        description: 'Production server',
+      },
+      {
         url: 'http://localhost:8088/api',
         description: 'Development server',
       },
