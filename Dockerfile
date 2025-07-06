@@ -10,11 +10,16 @@ COPY package.json pnpm-lock.yaml ./
 # Install dependencies using pnpm
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
-# Copy the rest of the application code
-COPY . .
+# Copy source code and config files
+COPY src ./src
+COPY tsconfig.json ./
+COPY prisma ./prisma
 
 # Build the TypeScript application
 RUN pnpm build
+
+# Copy any additional files needed at runtime
+COPY . .
 
 # Expose the port your Express app runs on
 EXPOSE 8088
