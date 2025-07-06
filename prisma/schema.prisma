@@ -25,16 +25,16 @@ model User {
 }
 
 model Gadget {
-  id               String            @id @default(uuid())
-  name             String            
-  codename         String            @unique
+  id               String       @id @default(uuid())
+  name             String
+  codename         String       @unique
   description      String?
-  status           GadgetStatus      @default(Available)
-  createdById      Int               @map("createdById")
-  createdBy        User              @relation(fields: [createdById], references: [id])
-  createdAt        DateTime          @default(now()) @map("createdAt")
-  updatedAt        DateTime          @updatedAt @map("updatedAt")
-  decommissionedAt DateTime?         @map("decommissionedAt")
+  status           GadgetStatus @default(Available)
+  createdById      Int          @map("createdById")
+  createdBy        User         @relation(fields: [createdById], references: [id])
+  createdAt        DateTime     @default(now()) @map("createdAt")
+  updatedAt        DateTime     @updatedAt @map("updatedAt")
+  decommissionedAt DateTime?    @map("decommissionedAt")
 
   @@map("gadgets")
 }

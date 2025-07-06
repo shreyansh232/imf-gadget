@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import db from "./config/db";
 import authRoutes from "../src/routes/auth.routes";
-
+import gadgetRoutes from "../src/routes/gadget.routes";
 
 const app = express();
 const port = process.env.PORT || 8088;
@@ -21,6 +21,7 @@ db.connect()
     process.exit(1);
   });
 app.use("/api/auth", authRoutes);
+app.use("/api/gadgets", gadgetRoutes);
 
 app.listen(port, () => {
   console.log(`Server started at ${port}`);
