@@ -2,8 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import db from "./config/db";
-import authRoutes from "../src/routes/auth.routes";
-import gadgetRoutes from "../src/routes/gadget.routes";
+import authRoutes from "./routes/auth.routes";
+import gadgetRoutes from "./routes/gadget.routes";
 import { swaggerUi, specs } from "./config/swagger";
 
 const app = express();
