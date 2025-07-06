@@ -7,7 +7,7 @@ import gadgetRoutes from "../src/routes/gadget.routes";
 import { swaggerUi, specs } from "./config/swagger";
 
 const app = express();
-const port = process.env.PORT || 8088;
+const port = Number(process.env.PORT) || 8088;
 
 app.use(express.json());
 app.use(cors());
@@ -28,6 +28,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/auth", authRoutes);
 app.use("/api/gadgets", gadgetRoutes);
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server started at ${port}`);
 });
