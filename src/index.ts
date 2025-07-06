@@ -22,11 +22,26 @@ db.connect()
     process.exit(1);
   });
 
+// Health check endpoints
+app.get("/", (req, res) => {
+  res.json({ message: "IMF Gadget API is running", status: "healthy" });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ message: "API is healthy", timestamp: new Date().toISOString() });
+});
+
 // Swagger Documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/gadgets", gadgetRoutes);
+
+// Error handling middleware
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error('Global error handler:', err);
+  res.status(500).json({ message: "Internal server error", error: err.message });
+});
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server started at ${port}`);
